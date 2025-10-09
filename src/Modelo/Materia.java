@@ -4,10 +4,7 @@
  */
 package Modelo;
 
-/**
- *
- * @author Brian D
- */
+
 public class Materia {
     
  int idMateria;

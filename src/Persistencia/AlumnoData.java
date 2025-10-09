@@ -61,20 +61,21 @@ public class AlumnoData {
     public void actualizarAlumno(Alumno alum1){
     
     
-       String query=" UPDATE alumno set dni=? , apellido=?, nombre=?, fechaNacimiento=?,  estado=? where idAlumno=? "; 
+       String query=" UPDATE alumno set apellido=?, nombre=?, fechaNacimiento=?,  estado=? where dni=? "; 
     
     try {
         PreparedStatement ps = conn.prepareStatement(query);
         LocalDate fechaUtil = alum1.getFechaNacimiento();
         java.sql.Date fechaSQL = java.sql.Date.valueOf(fechaUtil);
-        ps.setInt(1, alum1.getDni());
-        ps.setString(2, alum1.getApellido());
-        ps.setString(3, alum1.getNombre());
-        ps.setDate(4, fechaSQL);
-        ps.setBoolean(5, alum1.isEstado());
-        ps.setInt(6, alum1.getIdAlumno());
+        ps.setString(1, alum1.getApellido());
+        ps.setString(2, alum1.getNombre());
+        ps.setDate(3, fechaSQL);
+        ps.setBoolean(4, alum1.isEstado());
+        ps.setInt(5, alum1.getDni());
      
         ps.executeUpdate();
+        
+       
        
         } catch (SQLException e){
             System.out.println("Error... ");      
@@ -83,18 +84,23 @@ public class AlumnoData {
     
     
     
-     public void bajaLogica(int id){
+     public void bajaLogica(int dni){
          //este metodo cambia solo el estado del alumno
         
-       String query=" UPDATE alumno set estado=0 where idAlumno=? "; 
+       String query=" UPDATE alumno SET estado=0 where dni=? AND estado=true "; 
     
     
      try {
         PreparedStatement ps = conn.prepareStatement(query); 
-        ps.setInt(1, id);
+        ps.setInt(1, dni);
         int exito=ps.executeUpdate();
         if(exito ==1){
             JOptionPane.showMessageDialog(null, "Alumno dado de baja");
+        }
+        
+        else{
+        JOptionPane.showMessageDialog(null, "El alumno ya estaba dado de baja");
+        
         }
        
         } catch (SQLException e){

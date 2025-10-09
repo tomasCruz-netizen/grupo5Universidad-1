@@ -17,13 +17,21 @@ import javax.swing.JOptionPane;
  * @author Brian D
  */
 public class VistaAlumno extends javax.swing.JInternalFrame {
-        Conexion con = new Conexion("jdbc:mariadb://localhost:3306/grupogp5universidad", "root","");
-       
-        private AlumnoData aluData = new AlumnoData(con);
-        private Alumno alumno1 = null;
-    
+
+    Conexion con = new Conexion("jdbc:mariadb://localhost:3306/grupogp5universidad", "root", "");
+
+    private AlumnoData aluData = new AlumnoData(con);
+    private Alumno alumno1 = null;
+
     public VistaAlumno() {
         initComponents();
+        
+        
+        jbActualizar.setEnabled(false);
+       
+        jbBajaLogica.setEnabled(false);
+        
+        
     }
 
     /**
@@ -37,9 +45,8 @@ public class VistaAlumno extends javax.swing.JInternalFrame {
 
         jPanel1 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
-        jBorrar = new javax.swing.JButton();
-        jBActualizar = new javax.swing.JButton();
-        BajaLogica = new javax.swing.JButton();
+        jbActualizar = new javax.swing.JButton();
+        jbBajaLogica = new javax.swing.JButton();
         jbAgregar = new javax.swing.JButton();
         jtDNI = new javax.swing.JTextField();
         jtNombre = new javax.swing.JTextField();
@@ -52,30 +59,28 @@ public class VistaAlumno extends javax.swing.JInternalFrame {
         rbEstado = new javax.swing.JRadioButton();
         btnBuscar = new javax.swing.JButton();
         jDateChooser1 = new com.toedter.calendar.JDateChooser();
+        btnSalir = new javax.swing.JButton();
 
         jPanel1.setBackground(new java.awt.Color(153, 204, 255));
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 0, 28)); // NOI18N
         jLabel2.setText("Gestion de alumnos");
 
-        jBorrar.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jBorrar.setText("Eliminar");
-        jBorrar.addActionListener(new java.awt.event.ActionListener() {
+        jbActualizar.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jbActualizar.setText("Actualizar");
+        jbActualizar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jBorrarActionPerformed(evt);
+                jbActualizarActionPerformed(evt);
             }
         });
 
-        jBActualizar.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jBActualizar.setText("Actualizar");
-        jBActualizar.addActionListener(new java.awt.event.ActionListener() {
+        jbBajaLogica.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jbBajaLogica.setText("BajaLogica");
+        jbBajaLogica.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jBActualizarActionPerformed(evt);
+                jbBajaLogicaActionPerformed(evt);
             }
         });
-
-        BajaLogica.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        BajaLogica.setText("BajaLogica");
 
         jbAgregar.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jbAgregar.setText("Agregar");
@@ -108,10 +113,19 @@ public class VistaAlumno extends javax.swing.JInternalFrame {
 
         rbEstado.setText("Activo");
 
+        btnBuscar.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         btnBuscar.setText("Buscar");
         btnBuscar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnBuscarActionPerformed(evt);
+            }
+        });
+
+        btnSalir.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        btnSalir.setText("Salir");
+        btnSalir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSalirActionPerformed(evt);
             }
         });
 
@@ -124,10 +138,9 @@ public class VistaAlumno extends javax.swing.JInternalFrame {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(jbAgregar, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(81, 81, 81)
-                        .addComponent(jBActualizar, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 103, Short.MAX_VALUE)
-                        .addComponent(jBorrar, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 71, Short.MAX_VALUE)
+                        .addComponent(jbActualizar, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 200, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addGroup(jPanel1Layout.createSequentialGroup()
                             .addGap(171, 171, 171)
@@ -143,23 +156,29 @@ public class VistaAlumno extends javax.swing.JInternalFrame {
                             .addContainerGap()
                             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                 .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                                    .addComponent(jLabel5)
+                                    .addGap(258, 258, 258))
+                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                         .addComponent(jLabel6)
                                         .addComponent(jLabel7)
                                         .addComponent(jLabel8))
                                     .addGap(126, 126, 126)
-                                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                        .addComponent(jtApellido, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 132, Short.MAX_VALUE)
-                                        .addComponent(rbEstado, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 132, Short.MAX_VALUE)
-                                        .addComponent(jDateChooser1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                                    .addComponent(jLabel5)
-                                    .addGap(258, 258, 258))))))
-                .addGap(49, 49, 49)
+                                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(jbBajaLogica, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                            .addComponent(jtApellido, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 132, Short.MAX_VALUE)
+                                            .addComponent(rbEstado, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 132, Short.MAX_VALUE)
+                                            .addComponent(jDateChooser1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))))))
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnBuscar, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(BajaLogica, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(36, Short.MAX_VALUE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(69, 69, 69)
+                        .addComponent(btnBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 24, Short.MAX_VALUE)
+                        .addComponent(btnSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(61, 61, 61))))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -190,10 +209,10 @@ public class VistaAlumno extends javax.swing.JInternalFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 107, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jbAgregar)
-                    .addComponent(jBActualizar)
-                    .addComponent(jBorrar)
-                    .addComponent(BajaLogica))
-                .addGap(85, 85, 85))
+                    .addComponent(jbActualizar)
+                    .addComponent(jbBajaLogica)
+                    .addComponent(btnSalir))
+                .addGap(84, 84, 84))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -216,136 +235,185 @@ public class VistaAlumno extends javax.swing.JInternalFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jBActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBActualizarActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jBActualizarActionPerformed
+    private void jbActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbActualizarActionPerformed
 
-    private void jBorrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBorrarActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jBorrarActionPerformed
+        try {
+
+            int dni = Integer.parseInt(jtDNI.getText());
+
+            String apellido = jtApellido.getText().trim();
+            String nombre = jtNombre.getText().trim();
+
+            if (jtApellido.getText().isEmpty() || jtNombre.getText().isEmpty()) {
+
+                JOptionPane.showMessageDialog(null, "no se pueden dejar campos vacios");
+
+                if (!jtApellido.getText().matches("[a-zA-Z ]+") || !jtNombre.getText().matches("[a-zA-Z ]+")) {
+
+                    JOptionPane.showMessageDialog(null, "Solo se permiten letras en NOMBRE,APELLIDO");
+                    return;
+                }
+
+            }
+
+            Boolean estado = rbEstado.isSelected();
+
+            java.util.Date sfecha = jDateChooser1.getDate();
+
+            LocalDate fechaNac = sfecha.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+
+            if (alumno1 != null) {
+
+                alumno1 = new Alumno(dni, apellido, nombre, fechaNac, estado);
+
+                aluData.actualizarAlumno(alumno1);
+
+                limpiarCampos();
+
+                JOptionPane.showMessageDialog(this, "Alumno Actualizado");
+
+            } else {
+
+                JOptionPane.showMessageDialog(this, "No se puede modificar alumno");
+
+            }
+
+        } catch (NumberFormatException nfe) {
+
+            JOptionPane.showMessageDialog(this, "Debe ingresar un DNI válido");
+
+        }
+
+
+    }//GEN-LAST:event_jbActualizarActionPerformed
 
     private void jtDNIActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtDNIActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jtDNIActionPerformed
 
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
-        
-        try{
-        String DNI= jtDNI.getText().trim();
-        alumno1 =aluData.buscarAlumnoPorDni(DNI);
-         if( alumno1 != null){
-          
-             jtApellido.setText(alumno1.getApellido());
-             jtNombre.setText(alumno1.getNombre());
-             rbEstado.setSelected(alumno1.isEstado());
-             LocalDate fNac= alumno1.getFechaNacimiento();
-             java.util.Date fecha = java.util.Date.from(fNac.atStartOfDay(ZoneId.systemDefault()).toInstant());
-             jDateChooser1.setDate(fecha);
-             
-            
-           
-         } 
-         
-        }catch(NumberFormatException ex){
-           
-        JOptionPane.showMessageDialog(this, "Solo puede ingresar numeros ");
-        
+
+        try {
+            String DNI = jtDNI.getText().trim();
+            alumno1 = aluData.buscarAlumnoPorDni(DNI);
+            if (alumno1 != null) {
+
+                jtApellido.setText(alumno1.getApellido());
+                jtNombre.setText(alumno1.getNombre());
+                rbEstado.setSelected(alumno1.isEstado());
+                LocalDate fNac = alumno1.getFechaNacimiento();
+                java.util.Date fecha = java.util.Date.from(fNac.atStartOfDay(ZoneId.systemDefault()).toInstant());
+                jDateChooser1.setDate(fecha);
+
+            }
+
+        } catch (NumberFormatException ex) {
+
+            JOptionPane.showMessageDialog(this, "Solo puede ingresar numeros ");
+
         }
+        
+        jbActualizar.setEnabled(true);
+        
+        jbBajaLogica.setEnabled(true);
+        jbAgregar.setEnabled(false);
+        
+        
     }//GEN-LAST:event_btnBuscarActionPerformed
 
     private void jbAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbAgregarActionPerformed
-      
+
+        try {
+
+            int dni = Integer.parseInt(jtDNI.getText());
+
+            String apellido = jtApellido.getText().trim();
+            String nombre = jtNombre.getText().trim();
+
+            if (jtApellido.getText().isEmpty() || jtNombre.getText().isEmpty()) {
+
+                JOptionPane.showMessageDialog(null, "no se pueden dejar campos vacios");
+
+                if (!jtApellido.getText().matches("[a-zA-Z ]+") || !jtNombre.getText().matches("[a-zA-Z ]+")) {
+
+                    JOptionPane.showMessageDialog(null, "Solo se permiten letras en NOMBRE,APELLIDO");
+                    return;
+                }
+
+            }
+
+            Boolean estado = rbEstado.isSelected();
+
+            java.util.Date sfecha = jDateChooser1.getDate();
+
+            LocalDate fechaNac = sfecha.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+
+            if (alumno1 == null) {
+
+                alumno1 = new Alumno(dni, apellido, nombre, fechaNac, estado);
+
+                aluData.guardarAlumno(alumno1);
+
+                limpiarCampos();
+
+                JOptionPane.showMessageDialog(this, "Alumno guardado");
+
+            } else {
+
+                JOptionPane.showMessageDialog(this, "No se puede agregar alumno");
+
+            }
+
+        } catch (NumberFormatException nfe) {
+
+            JOptionPane.showMessageDialog(this, "Debe ingresar un DNI válido");
+
+        }
+        
+        
+        
+        
+
+
+    }//GEN-LAST:event_jbAgregarActionPerformed
+
+    private void jbBajaLogicaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbBajaLogicaActionPerformed
+       
+        
+        try{
+        int dni=Integer.parseInt(jtDNI.getText());
+         aluData.bajaLogica(dni);
+         
+         
+        }catch(NumberFormatException ex){
+            
+             JOptionPane.showMessageDialog(this, "Debe ingresar un DNI válido");
+
+            
+        }
+        
+       
+        
+        
         
                 
-                               
-                 
-           try{
-                     
-                     
-         int dni=Integer.parseInt(jtDNI.getText());
-                                                              
-              
-       
-                      
-       String apellido=jtApellido.getText().trim();
-       String nombre=jtNombre.getText().trim();
-            
-               
-         if(jtApellido.getText().isEmpty()|| jtNombre.getText().isEmpty() ){
-             
-              JOptionPane.showMessageDialog(null,"no se pueden dejar campos vacios");
-         
-                 
-             if (!jtApellido.getText().matches("[a-zA-Z ]+")|| !jtNombre.getText().matches("[a-zA-Z ]+")) {
-                 
-                 JOptionPane.showMessageDialog(null, "Solo se permiten letras en NOMBRE,APELLIDO");
-                 return;
-             }
-                 
-                                 
-            
-             }
-               
-                 Boolean estado=rbEstado.isSelected();
-                                  
-                 java.util.Date sfecha=jDateChooser1.getDate();
-                 
-                 LocalDate fechaNac=sfecha.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-                       
-                           
-                 
-                 
-                 
-                 if(alumno1==null){
-                     
-                     
-               
-                 
-                     
-                   alumno1 =new Alumno(dni,apellido,nombre,fechaNac, estado);
-                   
-                   aluData.guardarAlumno(alumno1);
-                   
-                   limpiarCampos();
-                   
-                   JOptionPane.showMessageDialog(this, "Alumno guardado");
-                 
-                 }
-                 
-                 else{
-                 
-                 
-                  JOptionPane.showMessageDialog(this, "No se puede agregar alumno");
-                 
-                 }
-                 
-                  
-                 
-                 
-                 
-                 
-                 
-                 
-                 
-                 
-                  }catch(NumberFormatException nfe){
-             
-               JOptionPane.showMessageDialog(this, "Debe ingresar un DNI válido");
-         
-                  } 
-           
-           
-                 
+                
+                
+                
         
-              
-    }//GEN-LAST:event_jbAgregarActionPerformed
-    
+        
+    }//GEN-LAST:event_jbBajaLogicaActionPerformed
+
+    private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
+      
+        dispose();
+        
+    }//GEN-LAST:event_btnSalirActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton BajaLogica;
     private javax.swing.JButton btnBuscar;
-    private javax.swing.JButton jBActualizar;
-    private javax.swing.JButton jBorrar;
+    private javax.swing.JButton btnSalir;
     private com.toedter.calendar.JDateChooser jDateChooser1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel4;
@@ -354,27 +422,23 @@ public class VistaAlumno extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JButton jbActualizar;
     private javax.swing.JButton jbAgregar;
+    private javax.swing.JButton jbBajaLogica;
     private javax.swing.JTextField jtApellido;
     private javax.swing.JTextField jtDNI;
     private javax.swing.JTextField jtNombre;
     private javax.swing.JRadioButton rbEstado;
     // End of variables declaration//GEN-END:variables
 
+    private void limpiarCampos() {
+        jtDNI.setText("");
 
-private void limpiarCampos(){
-    jtDNI.setText("");
-  
-    jtApellido.setText("");
-    jtNombre.setText("");
-    jDateChooser1.setDate(null);
-    rbEstado.setSelected(true);
+        jtApellido.setText("");
+        jtNombre.setText("");
+        jDateChooser1.setDate(null);
+        rbEstado.setSelected(true);
 
-}
-
-
-
-
-
+    }
 
 }
