@@ -13,6 +13,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import javax.swing.JOptionPane;
 
 /**
@@ -27,9 +28,9 @@ public class MateriaData {
         this.conn= conexion.buscarConexion();
     }
     
-    public void guardarMatria (Materia mate){
+    public void guardarMateria (Materia mate){
         
-        String query= "INSERT INTO  materia ( nombre, año, estado) VALUES (?,?,?,?,)";
+        String query= "INSERT INTO  materia ( nombre, año, estado) VALUES (?,?,?)";
         try {
         PreparedStatement ps = conn.prepareStatement(query);
         ps.setString(1, mate.getNombre());
@@ -105,68 +106,66 @@ public class MateriaData {
      
      
      
-     public void selectTodo() {
+     public ArrayList <Materia> selectTodo() {
      
-     //obtener todos los alumnos
+     
           
           String sql="Select * from materia";
           
-          
+          ArrayList <Materia> materias = new ArrayList ();
           
             
         try {
-          PreparedStatement    ps = conn.prepareStatement(sql);
+          PreparedStatement ps = conn.prepareStatement(sql);
             
              ResultSet resultado= ps.executeQuery();
              
              while (resultado.next()){
-             
-             System.out.println("ID MATERIA"+resultado.getInt("idMateria"));
-             System.out.println("NOMBRE "+resultado.getString("nombre"));
-             System.out.println("AÑO "+resultado.getInt("anio"));
-             System.out.println("ESTADO"+resultado.getBoolean("estado"));         
-           
+                 Materia mat = new Materia();
+                 mat.setIdMateria(resultado.getInt("IdMateria"));
+                 mat.setNombre(resultado.getString("nombre"));
+                 mat.setAnio(resultado.getInt("año"));
+                 mat.setEstado(resultado.getBoolean("estado"));
+                 
+                 materias.add(mat);
              
              }            
-            
+            ps.close();
         } catch (SQLException ex){
          JOptionPane.showMessageDialog(null, "Error mostrar tablas "+ ex.getMessage() );
         
         }
-     
+        return materias ;
      }
      
      
      
      
-     public void selectEspecifico(Materia mate) {
+     public Materia mostrarMateria(int id) {
      
           String sql="Select * from materia where idMateria=? ";
-          
-          PreparedStatement ps;
-           
+          Materia mate= new Materia();
         try {
-            ps = conn.prepareStatement(sql);
+            PreparedStatement ps = conn.prepareStatement(sql);
             
-             ps.setInt(1, mate.getIdMateria());     
+             ps.setInt(1, id);     
             
              ResultSet resultado= ps.executeQuery();
              
-             while (resultado.next()){
-             
-              System.out.println("ID MATERIA"+resultado.getInt("idMateria"));
-             System.out.println("NOMBRE "+resultado.getString("nombre"));
-             System.out.println("AÑO "+resultado.getInt("anio"));
-             System.out.println("ESTADO"+resultado.getBoolean("estado"));     
+             if (resultado.next()){
+                
+                 mate.setIdMateria(resultado.getInt("idMateria"));
+                 mate.setNombre(resultado.getString("nombre"));
+                 mate.setAnio(resultado.getInt("año"));
+                 mate.setEstado(resultado.getBoolean("estado"));
              }            
-            
+            ps.close();
         } catch (SQLException ex){
          JOptionPane.showMessageDialog(null, "Error mostrar tablas por id"+ ex.getMessage() );
         
         }
           
-          // ESTO DEVUELVE UN RESULSET, es como una matriz con columnas y filas
-         // resulset le pregunta si hay una fila para recorrer con el metodo next
+        return mate;
           
        
      }
