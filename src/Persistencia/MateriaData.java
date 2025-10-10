@@ -76,18 +76,18 @@ public class MateriaData {
 
      }
     
-    public void actualizarMateria (int id){
+    public void actualizarMateria (Materia mate){
     
     
        String query=" UPDATE materia set  nombre=?, año=?, estado=? where idMateria=? "; 
-       Materia mate= mostrarMateriaID(id);
+      
                 
     try {
         PreparedStatement ps = conn.prepareStatement(query);
         ps.setString(1, mate.getNombre());
         ps.setInt(2, mate.getAnio());
         ps.setBoolean(3, mate.isEstado());
-        ps.setInt(4, id);
+        ps.setInt(4, mate.getIdMateria());
        
        ps.executeUpdate();
           ps.close();
@@ -102,16 +102,16 @@ public class MateriaData {
     
     
     
-     public void bajaLogica(Materia mate){
+     public void bajaLogica(int id){
          //este metodo cambia solo el estado del alumno
         
-       String query=" UPDATE materia set estado=? where idMateria=? "; 
+       String query=" UPDATE materia set estado=0 where idMateria=? "; 
     
     
      try {
         PreparedStatement ps = conn.prepareStatement(query);
-       ps.setBoolean(1, mate.isEstado());
-       ps.setInt(2, mate.getIdMateria());
+       
+       ps.setInt(1, id);
        
         ps.executeUpdate();
        
@@ -190,7 +190,7 @@ public class MateriaData {
              
              if (resultado.next()){
                 
-               
+                 mate.setIdMateria(resultado.getInt("idMateria"));
                  mate.setNombre(resultado.getString("nombre"));
                  mate.setAnio(resultado.getInt("año"));
                  mate.setEstado(resultado.getBoolean("estado"));

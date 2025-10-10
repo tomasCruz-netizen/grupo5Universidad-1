@@ -209,11 +209,39 @@ public class VistaMateria extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
-        // TODO add your handling code here:
+       
+        
+        String nombre1=txtNombre.getText();
+        
+         Materia  materiaExistente = mateData.mostrarMateria(nombre1);
+         
+         
+          
+          
+         int id1= materiaExistente.getIdMateria();
+          
+          mateData.bajaLogica(id1);
+           
+         btnActivo.setSelected(materiaExistente.isEstado());
+         
+        
+          
+          
+          
+          
+          JOptionPane.showMessageDialog(this, "Materia inactiva");
+          
+          
+          limpiarCampos();
+          
+         
+            
+        
+        
     }//GEN-LAST:event_btnEliminarActionPerformed
 
     private void btnsalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnsalirActionPerformed
-        // TODO add your handling code here:
+      dispose();
     }//GEN-LAST:event_btnsalirActionPerformed
 
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
@@ -310,16 +338,28 @@ public class VistaMateria extends javax.swing.JInternalFrame {
 
             Boolean estado = btnActivo.isSelected();
             
+            
+           Materia  materiaExistente = mateData.mostrarMateria(nombre);
+            
+            
 
-            if (materia != null) {
+            if (materiaExistente != null) {
 
-              materia = mateData.mostrarMateria(nombre);
-              int id = materia.getIdMateria();
-        
+             
+                materiaExistente.setNombre(nombre);
+                materiaExistente.setAnio(anio);
+                materiaExistente.setEstado(estado);
+                
+                mateData.actualizarMateria(materiaExistente);
+                
+                
+                 limpiarCampos();
+                
+                
+             
+                      
 
-                mateData.actualizarMateria(id);
-
-                limpiarCampos();
+               
 
                 JOptionPane.showMessageDialog(this, "Materia Actualizada");
 
