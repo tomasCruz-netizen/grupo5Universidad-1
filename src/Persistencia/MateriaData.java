@@ -39,25 +39,56 @@ public class MateriaData {
            
     
         ps.executeUpdate();
+        ps. close();
         
         } catch (SQLException e){
-            System.out.println("Error en el insertar "+ e.getMessage());
+            System.out.println("Error  "+ e.getMessage());
                
         }
        
     }
+    public  Materia mostrarMateriaID(int id) {
+
+          String sql="Select * from materia where idMateria=? ";
+          Materia mate= new Materia();
+        try {
+            PreparedStatement ps = conn.prepareStatement(sql);
+
+             ps.setInt(1,id);
+
+             ResultSet resultado= ps.executeQuery();
+
+             if (resultado.next()){
+
+
+                 mate.setNombre(resultado.getString("nombre"));
+                 mate.setAnio(resultado.getInt("año"));
+                 mate.setEstado(resultado.getBoolean("estado"));
+             }
+            ps.close();
+        } catch (SQLException ex){
+         JOptionPane.showMessageDialog(null, "Error mostrar tablas por nombre"+ ex.getMessage() );
+
+        }
+
+        return mate;
+
+
+     }
     
-    
-    public void actualizarMateria (Materia mate){
+    public void actualizarMateria (int id){
     
     
        String query=" UPDATE materia set  nombre=?, año=?, estado=? where idMateria=? "; 
-    
+       Materia mate= mostrarMateriaID(id);
+                
     try {
         PreparedStatement ps = conn.prepareStatement(query);
         ps.setString(1, mate.getNombre());
         ps.setInt(2, mate.getAnio());
         ps.setBoolean(3, mate.isEstado());
+        ps.setInt(4, id);
+       
        ps.executeUpdate();
           ps.close();
        
