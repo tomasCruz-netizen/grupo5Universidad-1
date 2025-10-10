@@ -4,9 +4,12 @@
  */
 package Vistas;
 
+import Modelo.Alumno;
 import Modelo.Conexion;
 import Modelo.Materia;
 import Persistencia.MateriaData;
+import java.time.LocalDate;
+import java.time.ZoneId;
 import javax.swing.JOptionPane;
 
 /**
@@ -14,13 +17,17 @@ import javax.swing.JOptionPane;
  * @author Brian D
  */
 public class VistaMateria extends javax.swing.JInternalFrame {
-    
+
     Conexion con = new Conexion("jdbc:mariadb://localhost:3306/grupogp5universidad", "root", "");
-    private MateriaData mateData= new MateriaData(con);
-    private Materia materia= null;
-    
+    private MateriaData mateData = new MateriaData(con);
+    private Materia materia = null;
+
     public VistaMateria() {
         initComponents();
+
+        btnActualizar.setEnabled(false);
+        btnEliminar.setEnabled(false);
+
     }
 
     /**
@@ -61,6 +68,11 @@ public class VistaMateria extends javax.swing.JInternalFrame {
         });
 
         btnActualizar.setText("Actualizar");
+        btnActualizar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnActualizarActionPerformed(evt);
+            }
+        });
 
         btnEliminar.setText("Eliminar");
         btnEliminar.addActionListener(new java.awt.event.ActionListener() {
@@ -198,33 +210,144 @@ public class VistaMateria extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btnsalirActionPerformed
 
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
-        // TODO add your handling code here:
+
+        String nombre1 = txtNombre.getText();
+
+        mateData.mostrarMateria(nombre1);
+
+        if (materia != null) {
+
+            btnActivo.setSelected(materia.isEstado());
+
+            String materia2 = String.valueOf(materia.getAnio());
+
+            txtAnio.setText(materia2);
+
+        }
+
+        btnActualizar.setEnabled(true);
+        btnEliminar.setEnabled(true);
+
+
     }//GEN-LAST:event_btnBuscarActionPerformed
 
     private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
-       
-       
-        String nombre = txtNombre.getText().trim();
-        int anio = Integer.parseInt(txtAnio.getText());
-        boolean estado = btnActivo.isSelected();
-        if ( txtNombre.getText().isEmpty() || txtAnio.getText().isEmpty()){
-            JOptionPane.showMessageDialog(this, "No debe haber campos vacios");
-            return;
-        }
-         if (!txtNombre.getText().matches("[a-zA-Z1-9 ]+")) {
 
-                    JOptionPane.showMessageDialog(null, "Ingrese numeros y letras");
+        try {
+
+            String nombre = txtNombre.getText().trim();
+            int anio = Integer.parseInt(txtAnio.getText());
+            boolean estado = btnActivo.isSelected();
+            if (txtNombre.getText().isEmpty() || txtAnio.getText().isEmpty()) {
+                JOptionPane.showMessageDialog(this, "No debe haber campos vacios");
+                return;
+            }
+            if (!txtNombre.getText().matches("[a-zA-Z1-9 ]+")) {
+
+                JOptionPane.showMessageDialog(null, "Ingrese numeros y letras");
+                return;
+            }
+
+            
+            /*
+            if (materia == null) {
+
+
+*/
+                for (Materia materia2 : mateData.selectTodo()) {
+                    
+                    
+
+                    if (!materia2.getNombre().equalsIgnoreCase(nombre)) {
+
+                                                                      
+                        materia = new Materia(nombre, anio, estado);
+                        mateData.guardarMateria(materia);
+                        
+                         JOptionPane.showMessageDialog(null, "Materia agregada");
+                        
+                         materia = null;
+                        
+                        break;
+
+                    } else {
+
+                       
+                        JOptionPane.showMessageDialog(this, "La materia ya existe");
+
+                        materia = null;
+                        break;
+
+                    }
+
+                }
+/*
+            } else {
+
+                JOptionPane.showMessageDialog(this, "No se puede agregar Materia");
+                materia = null;
+
+            }
+
+*/
+
+        } catch (NumberFormatException nfe) {
+
+            JOptionPane.showMessageDialog(this, "Debe ingresar un año de materia valido");
+
+        }
+
+        limpiarCampos();
+
+
+    }//GEN-LAST:event_btnAgregarActionPerformed
+
+    private void btnActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarActionPerformed
+
+        try {
+
+            String nombre = txtNombre.getText().trim();
+
+            if (txtNombre.getText().isEmpty()) {
+
+                JOptionPane.showMessageDialog(null, "no se pueden dejar campos vacios");
+
+                if (!txtNombre.getText().matches("[a-zA-Z1-9 ]+")) {
+
+                    JOptionPane.showMessageDialog(null, "Solo se permiten letras en NOMBRE o NUMEROS en materia");
                     return;
                 }
-         if(materia == null){
-             
-          materia=  new Materia(nombre, anio,estado);
-          mateData.guardarMateria(materia);
-         
-         JOptionPane.showMessageDialog(this, "Materia agregada");
-         }
-        
-    }//GEN-LAST:event_btnAgregarActionPerformed
+
+            }
+
+            int anio = Integer.parseInt(txtAnio.getText());
+
+            Boolean estado = btnActivo.isSelected();
+
+            if (materia != null) {
+
+                materia = new Materia(nombre, anio, estado);
+
+                mateData.actualizarMateria(materia);
+
+                limpiarCampos();
+
+                JOptionPane.showMessageDialog(this, "Materia Actualizada");
+
+            } else {
+
+                JOptionPane.showMessageDialog(this, "No se puede modificar materia");
+
+            }
+
+        } catch (NumberFormatException nfe) {
+
+            JOptionPane.showMessageDialog(this, "Debe ingresar un año de materia valido");
+
+        }
+
+
+    }//GEN-LAST:event_btnActualizarActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -243,4 +366,13 @@ public class VistaMateria extends javax.swing.JInternalFrame {
     private javax.swing.JTextField txtAnio;
     private javax.swing.JTextField txtNombre;
     // End of variables declaration//GEN-END:variables
+
+    private void limpiarCampos() {
+
+        txtNombre.setText("");
+        btnActivo.setSelected(true);
+        txtAnio.setText("");
+
+    }
+
 }

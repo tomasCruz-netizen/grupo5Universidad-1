@@ -59,9 +59,14 @@ public class MateriaData {
         ps.setInt(2, mate.getAnio());
         ps.setBoolean(3, mate.isEstado());
        ps.executeUpdate();
+          ps.close();
+       
         } catch (SQLException e){
             System.out.println("Error de actualizacion "+ e.getMessage());      
         }
+    
+
+    
     }
     
     
@@ -141,27 +146,27 @@ public class MateriaData {
      
      
      
-     public Materia mostrarMateria(int id) {
+     public Materia mostrarMateria(String nombre) {
      
-          String sql="Select * from materia where idMateria=? ";
+          String sql="Select * from materia where nombre=? ";
           Materia mate= new Materia();
         try {
             PreparedStatement ps = conn.prepareStatement(sql);
             
-             ps.setInt(1, id);     
+             ps.setString(1,nombre);  
             
              ResultSet resultado= ps.executeQuery();
              
              if (resultado.next()){
                 
-                 mate.setIdMateria(resultado.getInt("idMateria"));
+               
                  mate.setNombre(resultado.getString("nombre"));
                  mate.setAnio(resultado.getInt("año"));
                  mate.setEstado(resultado.getBoolean("estado"));
              }            
             ps.close();
         } catch (SQLException ex){
-         JOptionPane.showMessageDialog(null, "Error mostrar tablas por id"+ ex.getMessage() );
+         JOptionPane.showMessageDialog(null, "Error mostrar tablas por nombre"+ ex.getMessage() );
         
         }
           
