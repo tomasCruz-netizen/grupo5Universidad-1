@@ -23,6 +23,11 @@ import javax.swing.JOptionPane;
 public class MateriaData {
      private Connection conn= null;
 
+    public MateriaData() {
+        
+    }
+     
+
     public MateriaData(Conexion conexion) {
         
         this.conn= conexion.buscarConexion();
