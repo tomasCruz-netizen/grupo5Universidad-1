@@ -36,6 +36,10 @@ public class TestDeConsola extends javax.swing.JFrame {
         menuMateria = new javax.swing.JMenu();
         formMateria = new javax.swing.JMenuItem();
         buscarMate = new javax.swing.JMenuItem();
+        menuInscripcion = new javax.swing.JMenu();
+        VistaInscripcion = new javax.swing.JMenuItem();
+        jMenuItem2 = new javax.swing.JMenuItem();
+        jMenuItem3 = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -118,6 +122,34 @@ public class TestDeConsola extends javax.swing.JFrame {
 
         jMenuBar1.add(menuMateria);
 
+        menuInscripcion.setText("Inscripcion");
+
+        VistaInscripcion.setText("Formulario Inscripcion");
+        VistaInscripcion.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                VistaInscripcionActionPerformed(evt);
+            }
+        });
+        menuInscripcion.add(VistaInscripcion);
+
+        jMenuItem2.setText("Cargar Notas");
+        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem2ActionPerformed(evt);
+            }
+        });
+        menuInscripcion.add(jMenuItem2);
+
+        jMenuItem3.setText("Lista De inscripciones");
+        jMenuItem3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem3ActionPerformed(evt);
+            }
+        });
+        menuInscripcion.add(jMenuItem3);
+
+        jMenuBar1.add(menuInscripcion);
+
         setJMenuBar(jMenuBar1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -199,6 +231,33 @@ public class TestDeConsola extends javax.swing.JFrame {
         Escritorio.moveToFront(mate);
     }//GEN-LAST:event_formMateriaActionPerformed
 
+    private void VistaInscripcionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_VistaInscripcionActionPerformed
+       Escritorio.removeAll();
+        Escritorio.repaint();
+        VistaInscripcion ins =new VistaInscripcion();
+        Escritorio.add(ins);
+        ins.setVisible(true);
+        Escritorio.moveToFront(ins);
+    }//GEN-LAST:event_VistaInscripcionActionPerformed
+
+    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
+       Escritorio.removeAll();
+        Escritorio.repaint();
+        VistaCargarNota nota =new VistaCargarNota();
+        Escritorio.add(nota);
+        nota.setVisible(true);
+        Escritorio.moveToFront(nota);
+    }//GEN-LAST:event_jMenuItem2ActionPerformed
+
+    private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
+       Escritorio.removeAll();
+        Escritorio.repaint();
+        VistaListarInscripciones list =new VistaListarInscripciones();
+        Escritorio.add(list);
+        list.setVisible(true);
+        Escritorio.moveToFront(list);
+    }//GEN-LAST:event_jMenuItem3ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -236,13 +295,17 @@ public class TestDeConsola extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JDesktopPane Escritorio;
+    private javax.swing.JMenuItem VistaInscripcion;
     private javax.swing.JMenuItem buscarAlum;
     private javax.swing.JMenuItem buscarMate;
     private javax.swing.JMenuItem formMateria;
     private javax.swing.JMenuItem gestionAlum;
     private javax.swing.JInternalFrame jInternalFrame1;
     private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JMenuItem jMenuItem2;
+    private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenu menuAlumno;
+    private javax.swing.JMenu menuInscripcion;
     private javax.swing.JMenu menuMateria;
     // End of variables declaration//GEN-END:variables
 }
