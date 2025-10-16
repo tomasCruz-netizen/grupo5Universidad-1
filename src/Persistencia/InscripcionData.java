@@ -34,21 +34,26 @@ public class InscripcionData {
 
     public void inscripcion(Inscripcion ins) {
 
-        String sql = "INSERT INTO `inscripcion`( `nota`, `idAlumno`, `idMateria`) VALUES (?,?,?)";
-
+        String sql = "INSERT INTO `inscripcion`( `nota`, `idAlumno`, `idMateria`) VALUES (?,?,?) ";
+                
         try {
             PreparedStatement ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-            ps.setDouble(1, ins.getNota());
-            ps.setInt(2, ins.getAlumno().getIdAlumno());
-            ps.setInt(3, ins.getMateria().getIdMateria());
-            ps.executeUpdate();
-            ResultSet rs = ps.getGeneratedKeys();
-            if (rs.next()) {
+           //  Materia estadoMateria = matedate.mostrarMateriaID(ins.getMateria().getIdMateria());
+            //if(estadoMateria.isEstado()== true){
+                ps.setDouble(1, ins.getNota());
+                ps.setInt(2, ins.getAlumno().getIdAlumno());
+                ps.setInt(3, ins.getMateria().getIdMateria());
+                ps.executeUpdate();
+                ResultSet rs = ps.getGeneratedKeys();
+                if (rs.next()) {
 
                 ins.setIdInscripto(rs.getInt(1));
                 JOptionPane.showMessageDialog(null, "inscripcion realizada");
             }
-
+            //}else {
+             //        JOptionPane.showMessageDialog(null, "MATERIA INACTIVO... ");
+            //}
+            
             ps.close();
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "no se pudo conectar a la BD");
@@ -126,10 +131,39 @@ public class InscripcionData {
 
     }
     
+   public ArrayList <Materia> mostrarMateriasNOInscriptas(int idAlumno){
+       ArrayList<Materia> materiasNo = new ArrayList<>();
+            String sql = "SELECT * FROM materia WHERE estado = 1 AND idMateria NOT in (SELECT idMateria FROM inscripcion WHERE inscripcion.idAlumno = ? ) ";
+      try {
+             PreparedStatement ps = con.prepareStatement(sql);
+             
+             ps.setInt(1, idAlumno);
+             ResultSet rs = ps.executeQuery();
+        
+        while (rs.next()) {
+            Materia materia = new Materia();
+            materia.setIdMateria(rs.getInt("idMateria"));
+            materia.setNombre(rs.getString("nombre"));
+            materia.setAnio(rs.getInt("año"));
+            materia.setEstado(rs.getBoolean("estado"));
+            materiasNo.add(materia);
+        }
+        
+        ps.close();
+      
+      }catch (SQLException e){
+      
+              JOptionPane.showMessageDialog(null, "Error en la conexion");
+      }
+       return materiasNo;
+   }
+    
    public ArrayList <Materia> mostrarMateriasInscriptas(int idAlumno){
-    // existe un error en la consulta no se que es QUEMADOOO
-    String sql = "SELECT idMateria, nombre, anio FROM materia WHERE materia.idMateria IN (SELECT i.idMateria FROM inscripcion i WHERE i.idAlumno = ?) ";
-    ArrayList<Materia> materias = new ArrayList<>();
+    
+          ArrayList<Materia> materias = new ArrayList<>();
+       
+    String sql = "SELECT inscripcion.idMateria,nombre,año,materia.estado FROM inscripcion,materia WHERE inscripcion.idMateria= materia.idMateria  AND inscripcion.idAlumno = ?;";
+ 
     
     try {
         PreparedStatement ps = con.prepareStatement(sql);
@@ -142,7 +176,7 @@ public class InscripcionData {
             materia.setIdMateria(rs.getInt("idMateria"));
             materia.setNombre(rs.getString("nombre"));
             materia.setAnio(rs.getInt("año"));
-            
+            materia.setEstado(rs.getBoolean("estado"));
             materias.add(materia);
         }
         

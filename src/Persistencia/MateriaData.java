@@ -12,6 +12,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
@@ -37,7 +38,7 @@ public class MateriaData {
         
         String query= "INSERT INTO  materia ( nombre, año, estado) VALUES (?,?,?)";
         try {
-        PreparedStatement ps = conn.prepareStatement(query);
+        PreparedStatement ps = conn.prepareStatement(query,Statement.RETURN_GENERATED_KEYS);
         ps.setString(1, mate.getNombre());
         ps.setInt(2, mate.getAnio());
         ps.setBoolean(3, mate.isEstado());

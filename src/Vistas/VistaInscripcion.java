@@ -7,6 +7,7 @@ package Vistas;
 
 import Modelo.Alumno;
 import Modelo.Conexion;
+import Modelo.Inscripcion;
 import Modelo.Materia;
 import Persistencia.AlumnoData;
 import Persistencia.InscripcionData;
@@ -35,13 +36,17 @@ public class VistaInscripcion extends javax.swing.JInternalFrame {
         this.matedata = new MateriaData(con);
         this.inscrData = new InscripcionData(con);
         modelo = new DefaultTableModel();
+        
         this.listaAlumnos = alumdata.listarAlumnos();
         this.listaMateria = matedata.selectTodo();
         initComponents();
+        
+      
         cargarCabecera();
         cargarAlumnos();
         
     }
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -64,8 +69,18 @@ public class VistaInscripcion extends javax.swing.JInternalFrame {
         jtabel = new javax.swing.JTable();
 
         btnInscribir.setText("Inscribir");
+        btnInscribir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnInscribirActionPerformed(evt);
+            }
+        });
 
         btnAnular.setText("Anular Inscripcion");
+        btnAnular.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAnularActionPerformed(evt);
+            }
+        });
 
         btnSalir.setText("Salir");
         btnSalir.addActionListener(new java.awt.event.ActionListener() {
@@ -87,6 +102,11 @@ public class VistaInscripcion extends javax.swing.JInternalFrame {
         });
 
         rbmateNoInscriptas.setText("Materias no inscriptas");
+        rbmateNoInscriptas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rbmateNoInscriptasActionPerformed(evt);
+            }
+        });
 
         jtabel.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -171,14 +191,70 @@ public class VistaInscripcion extends javax.swing.JInternalFrame {
         Alumno alu = (Alumno) jcbAlumnos.getSelectedItem();
         
         ArrayList <Materia> lis = inscrData.mostrarMateriasInscriptas(alu.getIdAlumno());
-            for (Materia mat : lis) {
-            modelo.addRow(new Object[] {
-                mat.getIdMateria(),
-                mat.getNombre(),
-                mat.getAnio()});
-        }
         
+         for (Materia mat : lis) {
+        
+        String estadoTexto = mat.isEstado() ? "Activo" : "Inactivo"; 
+        
+        modelo.addRow(new Object[] {
+            mat.getIdMateria(),
+            mat.getNombre(),
+            mat.getAnio(),
+            estadoTexto 
+        });
+        
+    }
+       btnInscribir.setEnabled(false);
     }//GEN-LAST:event_rbMateInscriptasActionPerformed
+
+    private void rbmateNoInscriptasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbmateNoInscriptasActionPerformed
+         borrarFilaColumnas();
+        rbMateInscriptas.setSelected(false);
+        
+        Alumno alu = (Alumno) jcbAlumnos.getSelectedItem();
+        
+        ArrayList<Materia> lista = inscrData.mostrarMateriasNOInscriptas(alu.getIdAlumno());
+        
+        for (Materia mat : lista) {
+        
+        String estadoTexto = mat.isEstado() ? "Activo" : "Inactivo"; 
+        
+        modelo.addRow(new Object[] {
+            mat.getIdMateria(),
+            mat.getNombre(),
+            mat.getAnio(),
+            estadoTexto 
+        });
+        
+        }
+        btnInscribir.setEnabled(true);
+    }//GEN-LAST:event_rbmateNoInscriptasActionPerformed
+
+    private void btnInscribirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInscribirActionPerformed
+       int fila = jtabel.getSelectedRow();
+       if(fila != -1 ){
+           
+           Alumno alu = (Alumno)jcbAlumnos.getSelectedItem();
+           
+           int idMateria = (Integer)modelo.getValueAt(fila, 0);
+           String nombre = (String)modelo.getValueAt(fila, 1);
+            int año = (Integer)modelo.getValueAt(fila, 2);
+           boolean estado = (boolean) modelo.getValueAt(fila, 3);
+           
+           Materia mat = new Materia(idMateria,nombre,año,estado);
+           Inscripcion i = new Inscripcion(0,alu,mat);
+           
+           inscrData.inscripcion(i);
+           borrarFilaColumnas();
+           
+           
+       }
+       
+    }//GEN-LAST:event_btnInscribirActionPerformed
+
+    private void btnAnularActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAnularActionPerformed
+
+    }//GEN-LAST:event_btnAnularActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -200,7 +276,7 @@ public class VistaInscripcion extends javax.swing.JInternalFrame {
         modelo.addColumn("Id Materia");
         modelo.addColumn("Nombre");
         modelo.addColumn("Año");
-       
+       modelo.addColumn("Estado");
         
         jtabel.setModel(modelo);
         
