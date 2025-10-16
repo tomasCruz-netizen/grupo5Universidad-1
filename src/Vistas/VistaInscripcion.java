@@ -19,6 +19,7 @@ import java.sql.Connection;
  * @author Sutara
  */
 import java.util.ArrayList;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 public class VistaInscripcion extends javax.swing.JInternalFrame {
     
@@ -204,7 +205,8 @@ public class VistaInscripcion extends javax.swing.JInternalFrame {
         });
         
     }
-       btnInscribir.setEnabled(false);
+        btnInscribir.setEnabled(false);
+        btnAnular.setEnabled(true);
     }//GEN-LAST:event_rbMateInscriptasActionPerformed
 
     private void rbmateNoInscriptasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbmateNoInscriptasActionPerformed
@@ -228,6 +230,7 @@ public class VistaInscripcion extends javax.swing.JInternalFrame {
         
         }
         btnInscribir.setEnabled(true);
+        btnAnular.setEnabled(false);
     }//GEN-LAST:event_rbmateNoInscriptasActionPerformed
 
     private void btnInscribirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInscribirActionPerformed
@@ -253,7 +256,17 @@ public class VistaInscripcion extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btnInscribirActionPerformed
 
     private void btnAnularActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAnularActionPerformed
-
+            int filaSeleccionada = jtabel.getSelectedRow();
+            
+            if( filaSeleccionada != -1){
+                Alumno alum = (Alumno) jcbAlumnos.getSelectedItem();
+                int idMateria= (int) modelo.getValueAt(filaSeleccionada, 0);
+                inscrData.eliminarInscripcion(alum.getIdAlumno(), idMateria);
+                borrarFilaColumnas();
+            
+            }else{
+                JOptionPane.showMessageDialog(this, "Debe seleccionar una materia");
+            }
     }//GEN-LAST:event_btnAnularActionPerformed
 
 
