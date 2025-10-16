@@ -38,11 +38,10 @@ public class InscripcionData {
                 
         try {
             PreparedStatement ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-           //  Materia estadoMateria = matedate.mostrarMateriaID(ins.getMateria().getIdMateria());
-            //if(estadoMateria.isEstado()== true){
+          
                 ps.setDouble(1, ins.getNota());
-                ps.setInt(2, ins.getAlumno().getIdAlumno());
-                ps.setInt(3, ins.getMateria().getIdMateria());
+                ps.setInt(2, ins.getIdAlumno());
+                ps.setInt(3, ins.getIdMateria());
                 ps.executeUpdate();
                 ResultSet rs = ps.getGeneratedKeys();
                 if (rs.next()) {
@@ -50,9 +49,7 @@ public class InscripcionData {
                 ins.setIdInscripto(rs.getInt(1));
                 JOptionPane.showMessageDialog(null, "inscripcion realizada");
             }
-            //}else {
-             //        JOptionPane.showMessageDialog(null, "MATERIA INACTIVO... ");
-            //}
+         
             
             ps.close();
         } catch (SQLException ex) {
@@ -93,11 +90,13 @@ public class InscripcionData {
 
                 Inscripcion ins = new Inscripcion();
                 ins.setIdInscripto(rs.getInt("idInscripto"));
-                Alumno alu = aludata.buscarAlumno(rs.getInt("idAlumno"));
-                ins.setAlumno(alu);
-                Materia mate = matedate.mostrarMateriaID(rs.getInt("idMateria"));
-                ins.setMateria(mate);
-                ins.setNota(rs.getDouble("nota"));
+                ins.setIdAlumno(rs.getInt("idAlumno"));
+                ins.setIdMateria(rs.getInt("idMateria"));
+                  ins.setNota(rs.getDouble("nota"));
+               
+              
+              
+              
                 lista.add(ins);
 
             }

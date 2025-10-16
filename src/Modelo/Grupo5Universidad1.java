@@ -63,7 +63,7 @@ public class Grupo5Universidad1 {
     //alumn6.eliminarAlumno(alumnito2);
     //alumno1.selectEspecifico(alum);
         System.out.println("------------------------------------");
-       Alumno alumnoEncontrado= alumno1.buscarAlumnoPorDni("31123456");
+       Alumno alumnoEncontrado= alumno1.buscarAlumnoPorDni(31123456);
         System.out.println(alumnoEncontrado.getApellido());
         System.out.println(alumnoEncontrado.getDni());
         System.out.println("------------------------------------");

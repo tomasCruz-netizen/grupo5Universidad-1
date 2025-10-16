@@ -206,14 +206,14 @@ public class AlumnoData {
        
      }
      
-     public Alumno buscarAlumnoPorDni(String dni) {
+     public Alumno buscarAlumnoPorDni(int dni) {
      
           String sql="Select * from alumno where dni=? ";
           Alumno alumno= null;
            
         try {
              PreparedStatement ps = conn.prepareStatement(sql);
-             ps.setString(1, dni); 
+             ps.setInt(1, dni); 
              ResultSet resultado= ps.executeQuery();
              
              if(resultado.next()){
@@ -242,6 +242,7 @@ public class AlumnoData {
           
        
      }
+     
      
      
      

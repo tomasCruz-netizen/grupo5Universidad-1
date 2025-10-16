@@ -293,7 +293,7 @@ public class VistaAlumno extends javax.swing.JInternalFrame {
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
 
         try {
-            String DNI = jtDNI.getText().trim();
+            int DNI = Integer.parseInt( jtDNI.getText().trim());
             alumno1 = aluData.buscarAlumnoPorDni(DNI);
             if (alumno1 != null) {
 

@@ -12,25 +12,46 @@ package Modelo;
 public class Inscripcion {
     private int idInscripto;
     private double nota;
-    Alumno alumno;
-    Materia materia;
+  private int idAlumno;
+  private int idMateria;
 
     public Inscripcion() {
+        
     }
 
-    public Inscripcion(int idInscripto, double nota, Alumno alumno, Materia materia) {
+    public Inscripcion(double nota, int idAlumno, int idMateria) {
+        this.nota = nota;
+        this.idAlumno = idAlumno;
+        this.idMateria = idMateria;
+    }
+
+    public Inscripcion(int idInscripto, double nota, int idAlumno, int idMateria) {
         this.idInscripto = idInscripto;
         this.nota = nota;
-        this.alumno = alumno;
-        this.materia = materia;
-    }
-
-    public Inscripcion(double nota, Alumno alumno, Materia materia) {
-        this.nota = nota;
-        this.alumno = alumno;
-        this.materia = materia;
+        this.idAlumno = idAlumno;
+        this.idMateria = idMateria;
     }
     
+
+    public int getIdAlumno() {
+        return idAlumno;
+    }
+
+    public void setIdAlumno(int idAlumno) {
+        this.idAlumno = idAlumno;
+    }
+
+    public int getIdMateria() {
+        return idMateria;
+    }
+
+    public void setIdMateria(int idMateria) {
+        this.idMateria = idMateria;
+    }
+
+  
+
+   
 
     public int getIdInscripto() {
         return idInscripto;
@@ -48,26 +69,11 @@ public class Inscripcion {
         this.nota = nota;
     }
 
-    public Alumno getAlumno() {
-        return alumno;
-    }
-
-    public void setAlumno(Alumno alumno) {
-        this.alumno = alumno;
-    }
-
-    public Materia getMateria() {
-        return materia;
-    }
-
-    public void setMateria(Materia materia) {
-        this.materia = materia;
-    }
-
-    @Override
-    public String toString() {
-        return "Inscripcion{" + "idInscripto=" + idInscripto + ", nota=" + nota + ", alumno=" + alumno + ", materia=" + materia + '}';
-    }
     
+
+   
+
+
+
     
 }

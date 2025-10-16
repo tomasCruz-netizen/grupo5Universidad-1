@@ -111,13 +111,13 @@ public class VistaInscripcion extends javax.swing.JInternalFrame {
 
         jtabel.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null}
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+                "Title 1", "Title 2", "Title 3"
             }
         ));
         jScrollPane1.setViewportView(jtabel);
@@ -240,12 +240,12 @@ public class VistaInscripcion extends javax.swing.JInternalFrame {
            Alumno alu = (Alumno)jcbAlumnos.getSelectedItem();
            
            int idMateria = (Integer)modelo.getValueAt(fila, 0);
-           String nombre = (String)modelo.getValueAt(fila, 1);
-            int año = (Integer)modelo.getValueAt(fila, 2);
-           boolean estado = (boolean) modelo.getValueAt(fila, 3);
+           int idAlumno= alu.getIdAlumno();
+           Inscripcion i = new Inscripcion(0,idAlumno,idMateria);
            
-           Materia mat = new Materia(idMateria,nombre,año,estado);
-           Inscripcion i = new Inscripcion(0,alu,mat);
+                     
+          
+          
            
            inscrData.inscripcion(i);
            borrarFilaColumnas();
@@ -261,7 +261,8 @@ public class VistaInscripcion extends javax.swing.JInternalFrame {
             if( filaSeleccionada != -1){
                 Alumno alum = (Alumno) jcbAlumnos.getSelectedItem();
                 int idMateria= (int) modelo.getValueAt(filaSeleccionada, 0);
-                inscrData.eliminarInscripcion(alum.getIdAlumno(), idMateria);
+                int idAlumno= alum.getIdAlumno();
+                inscrData.eliminarInscripcion(idAlumno, idMateria);
                 borrarFilaColumnas();
             
             }else{
@@ -289,7 +290,7 @@ public class VistaInscripcion extends javax.swing.JInternalFrame {
         modelo.addColumn("Id Materia");
         modelo.addColumn("Nombre");
         modelo.addColumn("Año");
-       modelo.addColumn("Estado");
+     
         
         jtabel.setModel(modelo);
         
