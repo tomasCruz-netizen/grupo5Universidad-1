@@ -2,7 +2,6 @@
 package Modelo;
 
 import java.time.LocalDate;
-import java.util.Date;
 
 
 public class Alumno {
@@ -32,10 +31,6 @@ public class Alumno {
         this.fechaNacimiento = fechaNacimiento;
         this.estado = estado;
     }
-    
-    
-    
-    
     
 
     public int getIdAlumno() {
@@ -91,10 +86,5 @@ public class Alumno {
         return apellido + " " + nombre ;
     }
     
-    
-    
-    
-    
-    
-    
+   
 }

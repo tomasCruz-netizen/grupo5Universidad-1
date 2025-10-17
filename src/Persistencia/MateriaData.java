@@ -5,7 +5,6 @@
  */
 package Persistencia;
 
-import Modelo.Alumno;
 import Modelo.Conexion;
 import Modelo.Materia;
 import java.sql.Connection;
@@ -13,7 +12,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 
@@ -24,6 +22,7 @@ import javax.swing.JOptionPane;
 public class MateriaData {
      private Connection conn= null;
 
+     
     public MateriaData() {
         
     }

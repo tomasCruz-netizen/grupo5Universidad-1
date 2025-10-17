@@ -70,11 +70,6 @@ public class TestDeConsola extends javax.swing.JFrame {
         menuAlumno.setText("Alumno");
 
         buscarAlum.setText("Buscar Alumno");
-        buscarAlum.addItemListener(new java.awt.event.ItemListener() {
-            public void itemStateChanged(java.awt.event.ItemEvent evt) {
-                buscarAlumItemStateChanged(evt);
-            }
-        });
         buscarAlum.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buscarAlumActionPerformed(evt);
@@ -83,11 +78,6 @@ public class TestDeConsola extends javax.swing.JFrame {
         menuAlumno.add(buscarAlum);
 
         gestionAlum.setText("Gestion Alumno");
-        gestionAlum.addItemListener(new java.awt.event.ItemListener() {
-            public void itemStateChanged(java.awt.event.ItemEvent evt) {
-                gestionAlumItemStateChanged(evt);
-            }
-        });
         gestionAlum.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 gestionAlumActionPerformed(evt);
@@ -98,11 +88,6 @@ public class TestDeConsola extends javax.swing.JFrame {
         jMenuBar1.add(menuAlumno);
 
         menuMateria.setText("Materia");
-        menuMateria.addItemListener(new java.awt.event.ItemListener() {
-            public void itemStateChanged(java.awt.event.ItemEvent evt) {
-                menuMateriaItemStateChanged(evt);
-            }
-        });
 
         formMateria.setText("Formulario Materia");
         formMateria.addActionListener(new java.awt.event.ActionListener() {
@@ -172,13 +157,8 @@ public class TestDeConsola extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void menuMateriaItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_menuMateriaItemStateChanged
-        // TODO add your handling code here:
-        
-    }//GEN-LAST:event_menuMateriaItemStateChanged
-
     private void buscarAlumActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buscarAlumActionPerformed
-        // TODO add your handling code here:
+       
         Escritorio.removeAll();
         Escritorio.repaint();
         BuscarAlumno alum  = new BuscarAlumno();
@@ -190,7 +170,7 @@ public class TestDeConsola extends javax.swing.JFrame {
     }//GEN-LAST:event_buscarAlumActionPerformed
 
     private void gestionAlumActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_gestionAlumActionPerformed
-        // TODO add your handling code here:
+       
         Escritorio.removeAll();
         Escritorio.repaint();
         VistaAlumno alum  = new VistaAlumno();
@@ -201,17 +181,8 @@ public class TestDeConsola extends javax.swing.JFrame {
 
     }//GEN-LAST:event_gestionAlumActionPerformed
 
-    private void buscarAlumItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_buscarAlumItemStateChanged
-        // TODO add your handling code here:
-          
-    }//GEN-LAST:event_buscarAlumItemStateChanged
-
-    private void gestionAlumItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_gestionAlumItemStateChanged
-      
-    }//GEN-LAST:event_gestionAlumItemStateChanged
-
     private void buscarMateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buscarMateActionPerformed
-        // TODO add your handling code here:
+        
         Escritorio.removeAll();
         Escritorio.repaint();
         BuscarMateria mate =new BuscarMateria();
@@ -222,7 +193,7 @@ public class TestDeConsola extends javax.swing.JFrame {
     }//GEN-LAST:event_buscarMateActionPerformed
 
     private void formMateriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_formMateriaActionPerformed
-        // TODO add your handling code here:
+     
         Escritorio.removeAll();
         Escritorio.repaint();
         VistaMateria mate =new VistaMateria();
@@ -232,7 +203,8 @@ public class TestDeConsola extends javax.swing.JFrame {
     }//GEN-LAST:event_formMateriaActionPerformed
 
     private void VistaInscripcionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_VistaInscripcionActionPerformed
-       Escritorio.removeAll();
+      
+        Escritorio.removeAll();
         Escritorio.repaint();
         VistaInscripcion ins =new VistaInscripcion();
         Escritorio.add(ins);
@@ -241,7 +213,8 @@ public class TestDeConsola extends javax.swing.JFrame {
     }//GEN-LAST:event_VistaInscripcionActionPerformed
 
     private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
-       Escritorio.removeAll();
+        
+        Escritorio.removeAll();
         Escritorio.repaint();
         VistaCargarNota nota =new VistaCargarNota();
         Escritorio.add(nota);
@@ -250,7 +223,8 @@ public class TestDeConsola extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItem2ActionPerformed
 
     private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
-       Escritorio.removeAll();
+       
+        Escritorio.removeAll();
         Escritorio.repaint();
         VistaListarInscripciones list =new VistaListarInscripciones();
         Escritorio.add(list);

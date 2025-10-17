@@ -13,7 +13,6 @@ public class Conexion {
     private String usuario;
     private String url;
     private String password;
-    
     private static Connection conexion= null;
     
 

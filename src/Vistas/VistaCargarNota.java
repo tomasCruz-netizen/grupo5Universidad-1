@@ -30,7 +30,7 @@ public class VistaCargarNota extends javax.swing.JInternalFrame {
 
 
     public VistaCargarNota() {
-         this.alumdata= new AlumnoData(con);
+        this.alumdata= new AlumnoData(con);
         this.matedata = new MateriaData(con);
         this.inscrData = new InscripcionData(con);
         modelo = new DefaultTableModel();
@@ -153,7 +153,7 @@ public class VistaCargarNota extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jbActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbActualizarActionPerformed
-        // TODO add your handling code here:
+      
         int fila = jTableNotas.getSelectedRow();
         if( fila!=-1){
         int idA = (int)jTableNotas.getValueAt(fila,1);
@@ -168,14 +168,14 @@ public class VistaCargarNota extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jbActualizarActionPerformed
 
     private void jcbAlumnoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcbAlumnoActionPerformed
-       borrarFilaColumnas(); 
+        borrarFilaColumnas(); 
         CargarTabla();
 
 
     }//GEN-LAST:event_jcbAlumnoActionPerformed
 
     private void jbSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbSalirActionPerformed
-        // TODO add your handling code here:
+        
         dispose();
     }//GEN-LAST:event_jbSalirActionPerformed
 
@@ -218,16 +218,10 @@ public class VistaCargarNota extends javax.swing.JInternalFrame {
             alu.getIdAlumno(),
             alu.getIdMateria(),
             alu.getNota()
-                     
-             
-        });
-         
-         
-         
+                  
+            });
+        
          }
-         
-         
-         
          
      }
  
@@ -243,6 +237,5 @@ public class VistaCargarNota extends javax.swing.JInternalFrame {
 
 
 
- 
 
 }

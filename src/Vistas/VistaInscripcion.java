@@ -8,12 +8,11 @@ import Modelo.Materia;
 import Persistencia.AlumnoData;
 import Persistencia.InscripcionData;
 import Persistencia.MateriaData;
-import java.sql.Connection;
-
-
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+
+
 public class VistaInscripcion extends javax.swing.JInternalFrame {
     
     private Conexion con = new Conexion("jdbc:mariadb://localhost:3306/grupogp5universidad", "root","");
@@ -83,12 +82,6 @@ public class VistaInscripcion extends javax.swing.JInternalFrame {
         jLabel1.setText("Formulario Inscripcion");
 
         jLabel2.setText("Seleccione un alumno:");
-
-        jcbAlumnos.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jcbAlumnosActionPerformed(evt);
-            }
-        });
 
         rbMateInscriptas.setText("Materias inscriptas");
         rbMateInscriptas.addActionListener(new java.awt.event.ActionListener() {
@@ -177,10 +170,12 @@ public class VistaInscripcion extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
+        
         dispose();
     }//GEN-LAST:event_btnSalirActionPerformed
 
     private void rbMateInscriptasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbMateInscriptasActionPerformed
+           
         borrarFilaColumnas();
         // esto se hace para que este desmarcado el radio
             rbmateNoInscriptas.setSelected(false);
@@ -189,14 +184,13 @@ public class VistaInscripcion extends javax.swing.JInternalFrame {
         ArrayList <Materia> lis = inscrData.mostrarMateriasInscriptas(alu.getIdAlumno());
         
          for (Materia mat : lis) {
-        
-        String estadoTexto = mat.isEstado() ? "Activo" : "Inactivo"; 
+    
         
         modelo.addRow(new Object[] {
             mat.getIdMateria(),
             mat.getNombre(),
-            mat.getAnio(),
-            estadoTexto 
+            mat.getAnio()
+            
         });
         
     }
@@ -205,7 +199,8 @@ public class VistaInscripcion extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_rbMateInscriptasActionPerformed
 
     private void rbmateNoInscriptasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbmateNoInscriptasActionPerformed
-         borrarFilaColumnas();
+         
+        borrarFilaColumnas();
         rbMateInscriptas.setSelected(false);
         
         Alumno alu = (Alumno) jcbAlumnos.getSelectedItem();
@@ -214,14 +209,11 @@ public class VistaInscripcion extends javax.swing.JInternalFrame {
         
         for (Materia mat : lista) {
         
-        String estadoTexto = mat.isEstado() ? "Activo" : "Inactivo"; 
-        
-        modelo.addRow(new Object[] {
-            mat.getIdMateria(),
-            mat.getNombre(),
-            mat.getAnio(),
-            estadoTexto 
-        });
+            modelo.addRow(new Object[] {
+                mat.getIdMateria(),
+                mat.getNombre(),
+                mat.getAnio(),
+            });
         
         }
         btnInscribir.setEnabled(true);
@@ -231,20 +223,18 @@ public class VistaInscripcion extends javax.swing.JInternalFrame {
     private void btnInscribirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInscribirActionPerformed
        int fila = jtabel.getSelectedRow();
        if(fila != -1 ){
-           
+           try{
            Alumno alu = (Alumno)jcbAlumnos.getSelectedItem();
            
            int idMateria = (Integer)modelo.getValueAt(fila, 0);
            int idAlumno= alu.getIdAlumno();
            Inscripcion i = new Inscripcion(0,idAlumno,idMateria);
            
-                     
-          
-          
-           
            inscrData.inscripcion(i);
            borrarFilaColumnas();
-           
+           }catch(ClassCastException e){
+               JOptionPane.showMessageDialog(null, "Error de formato de datos");
+           }
            
        }
        
@@ -254,20 +244,21 @@ public class VistaInscripcion extends javax.swing.JInternalFrame {
             int filaSeleccionada = jtabel.getSelectedRow();
             
             if( filaSeleccionada != -1){
+                try {
                 Alumno alum = (Alumno) jcbAlumnos.getSelectedItem();
                 int idMateria= (int) modelo.getValueAt(filaSeleccionada, 0);
                 int idAlumno= alum.getIdAlumno();
                 inscrData.eliminarInscripcion(idAlumno, idMateria);
                 borrarFilaColumnas();
+                }catch(ClassCastException e){
+                    JOptionPane.showMessageDialog(null, "Error de formato de datos");
+                    }
             
             }else{
                 JOptionPane.showMessageDialog(this, "Debe seleccionar una materia");
             }
+           
     }//GEN-LAST:event_btnAnularActionPerformed
-
-    private void jcbAlumnosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcbAlumnosActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jcbAlumnosActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

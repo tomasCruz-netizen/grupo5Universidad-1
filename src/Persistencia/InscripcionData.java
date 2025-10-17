@@ -1,7 +1,6 @@
 
 package Persistencia;
 
-import Modelo.Alumno;
 import Modelo.Conexion;
 import Modelo.Inscripcion;
 import Modelo.Materia;
@@ -11,8 +10,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 
@@ -22,6 +19,11 @@ public class InscripcionData {
     AlumnoData aludata = new AlumnoData();
     MateriaData matedate = new MateriaData();
 
+    
+    public InscripcionData() {
+    }
+    
+  
     public InscripcionData(Conexion conexion) {
         con = conexion.buscarConexion();
     }
@@ -41,13 +43,13 @@ public class InscripcionData {
                 if (rs.next()) {
 
                 ins.setIdInscripto(rs.getInt(1));
-                JOptionPane.showMessageDialog(null, "inscripcion realizada");
+                JOptionPane.showMessageDialog(null, "Inscripcion Realizada");
             }
          
             
             ps.close();
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "no se pudo conectar a la BD");
+            JOptionPane.showMessageDialog(null, "No se pudo conectar a la BD");
         }
     }
 
@@ -62,12 +64,12 @@ public class InscripcionData {
             int filas = ps.executeUpdate();
             if (filas == 1) {
 
-                JOptionPane.showMessageDialog(null, "alumno actualizado");
+                JOptionPane.showMessageDialog(null, "Alumno actualizado");
 
             }
 
         } catch (SQLException ex) {
-            JOptionPane.showConfirmDialog(null, "no se pudo conectar a BD");
+            JOptionPane.showConfirmDialog(null, "No se pudo conectar a BD");
 
         }
 
@@ -86,17 +88,14 @@ public class InscripcionData {
                 ins.setIdInscripto(rs.getInt("idInscripto"));
                 ins.setIdAlumno(rs.getInt("idAlumno"));
                 ins.setIdMateria(rs.getInt("idMateria"));
-                  ins.setNota(rs.getDouble("nota"));
+                ins.setNota(rs.getDouble("nota"));
                
-              
-              
-              
                 lista.add(ins);
 
             }
             ps.close();
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "no se pudo conectar a la BD");
+            JOptionPane.showMessageDialog(null, "No se pudo conectar a la BD");
         }
 
         return lista;
@@ -112,14 +111,14 @@ public class InscripcionData {
             ps.setInt(2, idMateria);
             int filas = ps.executeUpdate();
             if (filas == 1) {
-                JOptionPane.showMessageDialog(null, "inscripcion eliminada ");
+                JOptionPane.showMessageDialog(null, "Inscripcion Eliminada ");
 
             }
 
             ps.close();
 
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "no se pudo conectar a la BD");
+            JOptionPane.showMessageDialog(null, "No se pudo conectar a la BD");
         }
 
     }
@@ -176,7 +175,7 @@ public class InscripcionData {
         ps.close();
     } catch (SQLException ex) {
        
-        JOptionPane.showMessageDialog(null, "error 404 al obtener materias inscriptas ");
+        JOptionPane.showMessageDialog(null, "Error 404 al obtener materias inscriptas ");
        
     }
     

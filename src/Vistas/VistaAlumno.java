@@ -9,7 +9,6 @@ import Modelo.Conexion;
 import Persistencia.AlumnoData;
 import java.time.LocalDate;
 import java.time.ZoneId;
-import java.util.Date;
 import javax.swing.JOptionPane;
 
 /**
@@ -61,8 +60,6 @@ public class VistaAlumno extends javax.swing.JInternalFrame {
         btnSalir = new javax.swing.JButton();
         jDateChooser1 = new com.toedter.calendar.JDateChooser();
 
-        jPanel1.setBackground(new java.awt.Color(153, 204, 255));
-
         jLabel2.setFont(new java.awt.Font("Tahoma", 0, 28)); // NOI18N
         jLabel2.setText("Gestion de alumnos");
 
@@ -87,12 +84,6 @@ public class VistaAlumno extends javax.swing.JInternalFrame {
         jbAgregar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jbAgregarActionPerformed(evt);
-            }
-        });
-
-        jtDNI.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jtDNIActionPerformed(evt);
             }
         });
 
@@ -286,10 +277,6 @@ public class VistaAlumno extends javax.swing.JInternalFrame {
 
     }//GEN-LAST:event_jbActualizarActionPerformed
 
-    private void jtDNIActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtDNIActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jtDNIActionPerformed
-
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
 
         try {
@@ -368,11 +355,7 @@ public class VistaAlumno extends javax.swing.JInternalFrame {
             JOptionPane.showMessageDialog(this, "Debe ingresar un DNI válido");
 
         }
-        
-        
-        
-        
-
+  
 
     }//GEN-LAST:event_jbAgregarActionPerformed
 
@@ -390,16 +373,7 @@ public class VistaAlumno extends javax.swing.JInternalFrame {
 
             
         }
-        
-       
-        
-        
-        
-                
-                
-                
-                
-        
+    
         
     }//GEN-LAST:event_jbBajaLogicaActionPerformed
 

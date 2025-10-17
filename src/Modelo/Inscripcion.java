@@ -12,8 +12,8 @@ package Modelo;
 public class Inscripcion {
     private int idInscripto;
     private double nota;
-  private int idAlumno;
-  private int idMateria;
+    private int idAlumno;
+    private int idMateria;
 
     public Inscripcion() {
         
@@ -49,9 +49,6 @@ public class Inscripcion {
         this.idMateria = idMateria;
     }
 
-  
-
-   
 
     public int getIdInscripto() {
         return idInscripto;
@@ -70,10 +67,5 @@ public class Inscripcion {
     }
 
     
-
-   
-
-
-
-    
+ 
 }

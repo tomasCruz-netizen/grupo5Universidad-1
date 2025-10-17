@@ -42,10 +42,7 @@ public class AlumnoData {
         ps.executeUpdate();
         
         } catch (SQLException e){
-            System.out.println("Error... ");
-            
-            
-           
+            System.out.println("Error... ");   
                
         }
        
@@ -69,8 +66,6 @@ public class AlumnoData {
      
         ps.executeUpdate();
         
-       
-       
         } catch (SQLException e){
             System.out.println("Error... ");      
         }
@@ -164,7 +159,6 @@ public class AlumnoData {
      public Alumno buscarAlumno(int id) {
      
           String sql="Select * from alumno where idAlumno=? ";
-          
          
           Alumno alumno= null;
            
@@ -231,15 +225,8 @@ public class AlumnoData {
         }
         
         return alumno;
-          // ESTO DEVUELVE UN RESULSET, es como una matriz con columnas y filas
-         // resulset le pregunta si hay una fila para recorrer con el metodo next
-          
-       
      }
-     
-     
-     
-     
+    
 
  }
      

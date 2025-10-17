@@ -14,7 +14,6 @@
                 <Property name="text" type="java.lang.String" value="Buscar Alumno"/>
               </Properties>
               <Events>
-                <EventHandler event="itemStateChanged" listener="java.awt.event.ItemListener" parameters="java.awt.event.ItemEvent" handler="buscarAlumItemStateChanged"/>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buscarAlumActionPerformed"/>
               </Events>
             </MenuItem>
@@ -23,7 +22,6 @@
                 <Property name="text" type="java.lang.String" value="Gestion Alumno"/>
               </Properties>
               <Events>
-                <EventHandler event="itemStateChanged" listener="java.awt.event.ItemListener" parameters="java.awt.event.ItemEvent" handler="gestionAlumItemStateChanged"/>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="gestionAlumActionPerformed"/>
               </Events>
             </MenuItem>
@@ -33,9 +31,6 @@
           <Properties>
             <Property name="text" type="java.lang.String" value="Materia"/>
           </Properties>
-          <Events>
-            <EventHandler event="itemStateChanged" listener="java.awt.event.ItemListener" parameters="java.awt.event.ItemEvent" handler="menuMateriaItemStateChanged"/>
-          </Events>
           <SubComponents>
             <MenuItem class="javax.swing.JMenuItem" name="formMateria">
               <Properties>

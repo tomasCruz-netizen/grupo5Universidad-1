@@ -4,10 +4,8 @@ package Vistas;
 import Modelo.Alumno;
 import Modelo.Conexion;
 import Modelo.Inscripcion;
-import Modelo.Materia;
 import Persistencia.AlumnoData;
 import Persistencia.InscripcionData;
-import Persistencia.MateriaData;
 import java.util.ArrayList;
 import javax.swing.table.DefaultTableModel;
 
@@ -15,11 +13,9 @@ import javax.swing.table.DefaultTableModel;
 public class VistaListarInscripciones extends javax.swing.JInternalFrame {
 
     
-      private Conexion con = new Conexion("jdbc:mariadb://localhost:3306/grupogp5universidad", "root","");
+    private Conexion con = new Conexion("jdbc:mariadb://localhost:3306/grupogp5universidad", "root","");
     private ArrayList <Alumno> listaAlumnos;
-    
     private AlumnoData alumdata ;
-   
     private InscripcionData inscrData;
     private DefaultTableModel modelo;
     
@@ -37,10 +33,6 @@ public class VistaListarInscripciones extends javax.swing.JInternalFrame {
         cargarCabecera();
         cargarAlumnos();
         listaAlumnos=new ArrayList<Alumno>();
-        
-        
-        
-               
         
         
     }
@@ -138,37 +130,32 @@ public class VistaListarInscripciones extends javax.swing.JInternalFrame {
       
         borrarFilaColumnas();
    
-   Alumno nuevo = (Alumno)cbAlumno.getSelectedItem();
-   int id = nuevo.getIdAlumno();
+        Alumno nuevo = (Alumno)cbAlumno.getSelectedItem();
+        int id = nuevo.getIdAlumno();
     
-     for (Inscripcion alu : inscrData.mostrarInscripto() ) {
-         if(id== alu.getIdAlumno()){
-             modelo.addRow(new Object[] {
-            alu.getIdInscripto(),
-            alu.getIdAlumno(),
-            alu.getIdMateria(),
-            alu.getNota()
-                   
-             
-        });
-         
-               
-         }
+        for (Inscripcion alu : inscrData.mostrarInscripto() ) {
+            if(id== alu.getIdAlumno()){
+                modelo.addRow(new Object[] {
+                    alu.getIdInscripto(),
+                    alu.getIdAlumno(),
+                    alu.getIdMateria(),
+                    alu.getNota()
+                 
+                   });
+  
+             }
                 
-              }
- 
-              
-        
+          }
+    
     }//GEN-LAST:event_cbAlumnoActionPerformed
 
     private void SalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SalirActionPerformed
-      dispose();
+     
+        dispose();
     }//GEN-LAST:event_SalirActionPerformed
 
    
 
-    
-    
      public void cargarCabecera(){
         
         modelo.addColumn("Id Incripto");
@@ -181,9 +168,7 @@ public class VistaListarInscripciones extends javax.swing.JInternalFrame {
     }
 
     public void cargarAlumnos(){
-        
-        
-        
+           
      listaAlumnos=alumdata.listarAlumnos();
           
         for (Alumno alumno : listaAlumnos) {
@@ -191,10 +176,7 @@ public class VistaListarInscripciones extends javax.swing.JInternalFrame {
             cbAlumno.addItem(alumno);
             
         }
-        
        
-        
-    
     }
     
     public void borrarFilaColumnas(){
@@ -203,18 +185,6 @@ public class VistaListarInscripciones extends javax.swing.JInternalFrame {
                  modelo.removeRow(i);
                      }
     }
-    
-    
-   
-    
-    
-    
-    
-    
-    
-    
-    
-    
     
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
