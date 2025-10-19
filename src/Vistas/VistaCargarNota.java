@@ -154,6 +154,13 @@ public class VistaCargarNota extends javax.swing.JInternalFrame {
 
     private void jbActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbActualizarActionPerformed
       
+        if (jTableNotas.isEditing()) {
+    jTableNotas.getCellEditor().stopCellEditing();
+}
+        
+               
+        
+        
         int fila = jTableNotas.getSelectedRow();
         if( fila!=-1){
         int idA = (int)jTableNotas.getValueAt(fila,1);
